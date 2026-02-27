@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Base Tap Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            background: #f0f4f8;
+            padding-top: 50px;
+        }
+
+        #tap-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: none;
+            background: #0052ff;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 10px #003eb3;
+        }
+
+        #tap-button:active {
+            box-shadow: 0 5px #003eb3;
+            transform: translateY(5px);
+        }
+
+        #score {
+            font-size: 48px;
+            margin: 20px;
+            color: #0052ff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Base Tap Game</h1>
+    <div id="score">0</div>
+    <button id="tap-button">TAP!</button>
+
+    <script>
+        let count = 0;
+        const scoreDisplay = document.getElementById('score');
+        const button = document.getElementById('tap-button');
+
+        button.addEventListener('click', () => {
+            count++;
+            scoreDisplay.innerText = count;
+        });
+    </script>
+</body>
+
+</html>
