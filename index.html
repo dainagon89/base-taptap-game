@@ -201,7 +201,12 @@
     <div id="score">0</div>
     <button id="tap-button">TAP!</button>
 
-    <script>
+    <script type="module">
+        import sdk from 'https://esm.sh/@farcaster/frame-sdk';
+
+        // アプリケーションがロードされたことをFarcasterに通知
+        sdk.actions.ready();
+
         let count = 0;
         const scoreDisplay = document.getElementById('score');
         const button = document.getElementById('tap-button');
