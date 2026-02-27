@@ -1,0 +1,14 @@
+{
+    "accountAssociation": {
+        "header": "eyJmaWQiOiA4ODg4ODgsICJ0eXBlIjogImN1c3RvZHkiLCAia2V5IjogIjB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCJ9",
+        "payload": "eyJkb21haW4iOiAiYmFzZS10YXB0YXAtZ2FtZS52ZXJjZWwuYXBwIn0",
+        "signature": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "frame": {
+        "version": "1",
+        "name": "Neon Tap Game",
+        "iconUrl": "https://base-taptap-game.vercel.app/icon.png",
+        "splashImageUrl": "https://base-taptap-game.vercel.app/splash.png",
+        "splashBackgroundColor": "#000000"
+    }
+}
