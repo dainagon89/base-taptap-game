@@ -3,42 +3,199 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Base Tap Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Cyberpunk Tap Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-color-end: #0a0a0a;
+            --bg-color-start: #1a1a2e;
+            /* 深い紺色 */
+            --neon-blue: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-blue-glow: rgba(0, 243, 255, 0.7);
+            --neon-pink-glow: rgba(255, 0, 255, 0.7);
+        }
+
         body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, var(--bg-color-start) 0%, var(--bg-color-end) 100%);
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Scanline effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: repeating-linear-gradient(0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px);
+            pointer-events: none;
+            z-index: 20;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: 8px;
+            color: #fff;
+            text-shadow:
+                0 0 5px #fff,
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                0 0 80px var(--neon-pink);
+            margin-bottom: 20px;
+            margin-top: -60px;
             text-align: center;
-            font-family: sans-serif;
-            background: #f0f4f8;
-            padding-top: 50px;
+            animation: flicker 4s infinite alternate;
+            z-index: 10;
         }
 
-        #tap-button {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: none;
-            background: #0052ff;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 10px #003eb3;
-        }
+        @keyframes flicker {
 
-        #tap-button:active {
-            box-shadow: 0 5px #003eb3;
-            transform: translateY(5px);
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 40px var(--neon-pink);
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                text-shadow: none;
+                opacity: 0.8;
+            }
         }
 
         #score {
-            font-size: 48px;
-            margin: 20px;
-            color: #0052ff;
+            font-size: 130px;
+            font-weight: 900;
+            margin-bottom: 50px;
+            color: #fff;
+            text-shadow:
+                0 0 10px var(--neon-blue),
+                0 0 20px var(--neon-blue),
+                0 0 40px var(--neon-blue),
+                0 0 80px var(--neon-blue),
+                0 0 120px var(--neon-blue);
+            z-index: 10;
+            transition: transform 0.05s ease-out, text-shadow 0.05s ease-out;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #tap-button {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            border: 4px solid var(--neon-pink);
+            background: rgba(255, 0, 255, 0.05);
+            color: #fff;
+            font-size: 38px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.1s ease;
+            box-shadow:
+                0 0 20px var(--neon-pink-glow),
+                inset 0 0 20px var(--neon-pink-glow);
+            text-shadow: 0 0 15px var(--neon-pink);
+            letter-spacing: 4px;
+            z-index: 10;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        #tap-button::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            box-shadow: 0 0 40px var(--neon-pink);
+            animation: buttonPulse 2s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes buttonPulse {
+            0% {
+                opacity: 0.4;
+                transform: scale(0.95);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+        }
+
+        #tap-button:active {
+            transform: scale(0.9);
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow:
+                0 0 60px var(--neon-pink),
+                0 0 100px var(--neon-pink),
+                inset 0 0 40px #fff;
+            text-shadow: 0 0 20px #fff;
+            border-color: #fff;
+        }
+
+        /* Glitch or flash effect class */
+        .flash {
+            animation: flashBg 0.1s ease-out;
+        }
+
+        @keyframes flashBg {
+            0% {
+                background: radial-gradient(circle at center, #2a2a5e 0%, var(--bg-color-end) 100%);
+                filter: brightness(1.5) contrast(1.2);
+            }
+
+            100% {
+                background: radial-gradient(circle at center, var(--bg-color-start) 0%, var(--bg-color-end) 100%);
+                filter: brightness(1) contrast(1);
+            }
+        }
+
+        .score-pop {
+            transform: scale(1.15);
+            text-shadow:
+                0 0 20px #fff,
+                0 0 50px var(--neon-blue),
+                0 0 100px var(--neon-blue),
+                0 0 150px var(--neon-blue) !important;
+            color: #fff !important;
         }
     </style>
 </head>
 
 <body>
-    <h1>Base Tap Game</h1>
+    <h1>NEON TAP</h1>
     <div id="score">0</div>
     <button id="tap-button">TAP!</button>
 
@@ -46,10 +203,29 @@
         let count = 0;
         const scoreDisplay = document.getElementById('score');
         const button = document.getElementById('tap-button');
+        const body = document.body;
 
-        button.addEventListener('click', () => {
+        button.addEventListener('click', (e) => {
             count++;
             scoreDisplay.innerText = count;
+
+            // Flash effect for body
+            body.classList.remove('flash');
+            void body.offsetWidth; // trigger reflow
+            body.classList.add('flash');
+
+            // Pop effect for score
+            scoreDisplay.classList.add('score-pop');
+
+            // "ネオンがパチッと点滅するようなエフェクト"
+            setTimeout(() => {
+                scoreDisplay.classList.remove('score-pop');
+            }, 80);
+
+            // Haptic feedback if available for mobile feel
+            if (window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(30);
+            }
         });
     </script>
 </body>
